@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const openYou = document.getElementById('openYou');
     const explainer = document.getElementById('explainer');
     const continueBtn = document.getElementById('continueBtn');
+    const inputSection = document.getElementById('inputSection');
+    const createNew = document.getElementById('createNew');
+    const createOwnLink = document.getElementById('createOwnLink');
+    const homeExplainer = document.getElementById('homeExplainer');
 
     // Handle cursor movement
     document.addEventListener('mousemove', (e) => {
@@ -31,9 +35,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const query = encodeURIComponent(searchInput.value.trim());
         if (!query) return;
 
-        const url = `${window.location.href}?q=${query}`;
+        const url = `${window.location.origin}${window.location.pathname}?q=${query}`;
         linkInput.value = url;
         result.classList.remove('hidden');
+    });
+
+    // Create new link button
+    createNew.addEventListener('click', () => {
+        result.classList.add('hidden');
+        inputSection.classList.remove('hidden');
+        searchInput.value = '';
+        searchInput.focus();
+        // Clear URL parameters
+        window.history.replaceState({}, document.title, window.location.pathname);
     });
 
     // Copy link to clipboard
@@ -81,6 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
         queryModal.style.display = 'flex';
     });
 
+    // Create own link button in modal
+    createOwnLink.addEventListener('click', () => {
+        window.location.href = window.location.pathname;
+    });
+
     // Show explainer steps one by one
     const showExplainerSteps = () => {
         explainer.classList.remove('hidden');
@@ -90,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 step.classList.remove('opacity-0');
                 step.classList.remove('translate-y-4');
+                // Smooth scroll to the step
+                step.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, index * 1000);
         });
     };
@@ -101,7 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (query) {
         const decodedQuery = decodeURIComponent(query);
         searchInput.value = decodedQuery;
-        result.classList.add('hidden');
+        inputSection.classList.add('hidden');
+        homeExplainer.classList.add('hidden');
         animation.classList.remove('hidden');
         cursor.style.display = 'block';
 

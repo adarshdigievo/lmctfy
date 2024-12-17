@@ -8,119 +8,162 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
-    <div class="max-w-2xl w-full text-center">
-        <h1 class="text-4xl font-bold mb-8 text-emerald-400">
-            Let me ChatGPT that for you
-            <i class="fas fa-robot ml-2"></i>
-        </h1>
-        
-        <div class="relative mb-8">
-            <input type="text" id="searchInput" 
-                class="w-full px-6 py-4 rounded-full bg-gray-800 border-2 border-emerald-500 focus:outline-none focus:border-emerald-400 text-lg"
-                placeholder="Type your question here...">
-            <button id="generateLink" 
-                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-full transition-colors">
-                Generate Link
-            </button>
-        </div>
-
-        <div id="result" class="hidden">
-            <div class="bg-gray-800 p-4 rounded-lg mb-4">
-                <p class="text-gray-300 mb-2">Share this link:</p>
-                <div class="flex items-center gap-2">
-                    <input type="text" id="linkInput" 
-                        class="flex-1 px-4 py-2 rounded bg-gray-700 text-white"
-                        readonly>
-                    <button id="copyButton" 
-                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded transition-colors">
-                        <i class="fas fa-copy"></i>
-                    </button>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <main class="flex-1 flex flex-col items-center justify-center p-4 pt-8 overflow-y-auto min-h-screen pb-16">
+        <div class="max-w-2xl w-full text-center">
+            <h1 class="text-4xl font-bold mb-8 text-emerald-400">
+                Let me ChatGPT that for you
+                <i class="fas fa-robot ml-2"></i>
+            </h1>
+            
+            <div id="homeExplainer" class="mb-12 text-center">
+                <p class="text-xl text-gray-300 mb-4">
+                    Ever get tired of explaining how to use ChatGPT? 🤔
+                </p>
+                <div class="bg-gray-800 p-6 rounded-lg space-y-4">
+                    <p class="text-lg">
+                        Create a helpful link that shows your friends exactly how to ask ChatGPT their question!
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-magic text-emerald-400 mt-1"></i>
+                            <p class="text-gray-300">Generates a guide showing how to use ChatGPT</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-share text-emerald-400 mt-1"></i>
+                            <p class="text-gray-300">Share the link with anyone who needs help</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-robot text-emerald-400 mt-1"></i>
+                            <p class="text-gray-300">Works with both ChatGPT and You.com</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-smile text-emerald-400 mt-1"></i>
+                            <p class="text-gray-300">A fun way to help others use AI!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="animation" class="hidden text-center">
-            <div class="cursor"></div>
-            <div id="searchText" class="text-2xl mt-8"></div>
-            <div id="explainer" class="hidden">
-                <div class="steps space-y-8 mt-12">
-                    <div class="step-1 opacity-0 transform translate-y-4 transition-all duration-500">
-                        <i class="fas fa-robot text-4xl text-emerald-400 mb-4"></i>
-                        <p class="text-xl">Hey there! 👋 Looks like someone thinks you need ChatGPT's help!</p>
-                    </div>
-                    <div class="step-2 opacity-0 transform translate-y-4 transition-all duration-500">
-                        <i class="fas fa-magic text-4xl text-emerald-400 mb-4"></i>
-                        <p class="text-xl">ChatGPT is like a super-smart friend who knows a lot about... well, everything!</p>
-                    </div>
-                    <div class="step-3 opacity-0 transform translate-y-4 transition-all duration-500">
-                        <i class="fas fa-clipboard text-4xl text-emerald-400 mb-4"></i>
-                        <p class="text-xl">Don't worry, we'll help you ask ChatGPT your question. It's as easy as copy & paste! 
-                        <br><span class="text-sm text-gray-400">(Yes, that's literally all you need to do 😉)</span></p>
-                    </div>
-                    <div class="step-4 opacity-0 transform translate-y-4 transition-all duration-500">
-                        <button id="continueBtn" class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
-                            <i class="fas fa-arrow-right mr-2"></i>
-                            I'm ready to become a ChatGPT pro!
+            <div id="inputSection" class="relative mb-8">
+                <input type="text" id="searchInput" 
+                    class="w-full px-6 py-4 rounded-full bg-gray-800 border-2 border-emerald-500 focus:outline-none focus:border-emerald-400 text-lg"
+                    placeholder="Type your question here...">
+                <button id="generateLink" 
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-full transition-colors">
+                    Generate Link
+                </button>
+            </div>
+
+            <div id="result" class="hidden space-y-4">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <p class="text-gray-300 mb-2">Share this link:</p>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="linkInput" 
+                            class="flex-1 px-4 py-2 rounded bg-gray-700 text-white"
+                            readonly>
+                        <button id="copyButton" 
+                            class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded transition-colors">
+                            <i class="fas fa-copy"></i>
                         </button>
                     </div>
                 </div>
+                <button id="createNew" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
+                    <i class="fas fa-plus"></i>
+                    Create another LMCTFY link
+                </button>
             </div>
-            <div id="redirectText" class="text-xl mt-4 text-emerald-400 hidden">
-                Almost there...
-            </div>
-        </div>
 
-        <!-- Modal -->
-        <div id="queryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-            <div class="bg-gray-800 p-6 rounded-lg max-w-lg w-full mx-4">
-                <div class="text-center mb-6">
-                    <i class="fas fa-graduation-cap text-5xl text-emerald-400 mb-4"></i>
-                    <h2 class="text-2xl font-bold">Congratulations! 🎉</h2>
-                    <p class="text-gray-400 mt-2">You're about to become a ChatGPT master!</p>
+            <div id="animation" class="hidden text-center">
+                <div class="cursor"></div>
+                <div id="searchText" class="text-2xl mt-8"></div>
+                <div id="explainer" class="hidden">
+                    <div class="steps space-y-8 mt-12">
+                        <div class="step-1 opacity-0 transform translate-y-4 transition-all duration-500">
+                            <i class="fas fa-robot text-4xl text-emerald-400 mb-4"></i>
+                            <p class="text-xl">Hey there! Looks like someone thinks you need ChatGPT's help!</p>
+                        </div>
+                        <div class="step-2 opacity-0 transform translate-y-4 transition-all duration-500">
+                            <i class="fas fa-magic text-4xl text-emerald-400 mb-4"></i>
+                            <p class="text-xl">ChatGPT is like a super-smart friend who knows a lot about... well, everything!</p>
+                        </div>
+                        <div class="step-3 opacity-0 transform translate-y-4 transition-all duration-500">
+                            <i class="fas fa-clipboard text-4xl text-emerald-400 mb-4"></i>
+                            <p class="text-xl">Don't worry, we'll help you ask ChatGPT your question. It's as easy as copy & paste! 
+                            <br><span class="text-sm text-gray-400">(Yes, that's literally all you need to do)</span></p>
+                        </div>
+                        <div class="step-4 opacity-0 transform translate-y-4 transition-all duration-500">
+                            <button id="continueBtn" class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
+                                <i class="fas fa-arrow-right mr-2"></i>
+                                I'm ready to become a ChatGPT pro!
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="space-y-4">
-                    <div class="bg-gray-700 p-4 rounded-lg">
-                        <p class="text-sm text-gray-400 mb-2">Here's your carefully crafted question:</p>
-                        <p id="modalQuery" class="text-emerald-400 break-words"></p>
-                    </div>
+                <div id="redirectText" class="text-xl mt-4 text-emerald-400 hidden">
+                    Almost there...
+                </div>
+            </div>
 
-                    <div class="bg-gray-900 p-4 rounded-lg space-y-4">
-                        <p class="text-lg font-semibold">Super Simple Steps:</p>
-                        <ol class="list-decimal list-inside space-y-2 text-gray-300">
-                            <li>Click the magical "Copy Query" button below 🪄</li>
-                            <li>Choose your AI assistant:
-                                <ul class="list-disc list-inside ml-6 mt-1 text-gray-400">
-                                    <li>ChatGPT - More detailed, great for conversations</li>
-                                    <li>You.com - Quick answers, no login needed!</li>
-                                </ul>
-                            </li>
-                            <li>Hit Enter and watch the magic happen! ✨</li>
-                        </ol>
+            <!-- Modal -->
+            <div id="queryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                <div class="bg-gray-800 p-6 rounded-lg max-w-lg w-full mx-4">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-graduation-cap text-5xl text-emerald-400 mb-4"></i>
+                        <h2 class="text-2xl font-bold">Congratulations!</h2>
+                        <p class="text-gray-400 mt-2">You're about to become a ChatGPT master!</p>
                     </div>
-
-                    <button id="copyQuery" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
-                        <i class="fas fa-copy"></i>
-                        Copy Query
-                    </button>
                     
-                    <div class="grid grid-cols-2 gap-4">
-                        <button id="openChatGPT" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
-                            <i class="fas fa-robot"></i>
-                            ChatGPT
+                    <div class="space-y-4">
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <p class="text-sm text-gray-400 mb-2">Here's your carefully crafted question:</p>
+                            <p id="modalQuery" class="text-emerald-400 break-words"></p>
+                        </div>
+
+                        <div class="bg-gray-900 p-4 rounded-lg space-y-4">
+                            <p class="text-lg font-semibold">Super Simple Steps:</p>
+                            <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                                <li>Click the magical "Copy Query" button below</li>
+                                <li>Choose your AI assistant:
+                                    <ul class="list-disc list-inside ml-6 mt-1 text-gray-400">
+                                        <li>ChatGPT - More detailed, great for conversations (paste the copied query manually)</li>
+                                        <li>You.com - Quick answers, opens directly with your query!</li>
+                                    </ul>
+                                </li>
+                                <li>Hit Enter and watch the magic happen!</li>
+                            </ol>
+                        </div>
+
+                        <button id="copyQuery" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                            <i class="fas fa-copy"></i>
+                            Copy Query
                         </button>
-                        <button id="openYou" class="w-full bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
-                            <i class="fas fa-search"></i>
-                            You.com
-                        </button>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <button id="openChatGPT" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                                <i class="fas fa-robot"></i>
+                                ChatGPT
+                            </button>
+                            <button id="openYou" class="w-full bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                                <i class="fas fa-search"></i>
+                                You.com
+                            </button>
+                        </div>
+
+                        <div class="border-t border-gray-700 my-4 pt-4">
+                            <p class="text-gray-400 mb-4">Want to help someone else with ChatGPT?</p>
+                            <button id="createOwnLink" class="w-full bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                                <i class="fas fa-magic"></i>
+                                Create your own LMCTFY link
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <footer class="fixed bottom-4 text-gray-500 text-sm">
+    <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 p-4 text-center border-t border-gray-800">
         <span class="hover:text-emerald-400 transition-colors duration-300">
             Crafted with <i class="fas fa-code text-emerald-500"></i> by humans who were too lazy to explain things
         </span>
